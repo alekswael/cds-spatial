@@ -288,17 +288,28 @@ class(elevation)
 class(aarhus)
 
 # Identify how many layers each object has
+<<<<<<< HEAD:Week02/02_ReadSpatialDataDK_exercise_ALEKSW.Rmd
 <<<<<<< HEAD:Week02/02_ReadSpatialDataDK_exercise.Rmd
+=======
+<<<<<<< HEAD:Week02/02_ReadSpatialDataDK_exercise_ALEKSW.Rmd
+nlayers(elevation)
+nlayers(aarhus)
+=======
+>>>>>>> 655c125e0c6542a5b8fb9c376d408ce94ec4930a:Week02/02_ReadSpatialDataDK_exercise.Rmd
 nlayers(___)
 nlayers(___)
 
 # Identify the resolution of each raster
 ___(elevation)
 ___(aarhus)
+<<<<<<< HEAD:Week02/02_ReadSpatialDataDK_exercise_ALEKSW.Rmd
 =======
 nlayers(elevation)
 nlayers(aarhus)
 >>>>>>> 906fa6e (week 2 exercise finished):Week02/02_ReadSpatialDataDK_exercise_ALEKSW.Rmd
+=======
+>>>>>>> 8d1e0cbfdf86d22c0bd644badd3b87b7c191eba4:Week02/02_ReadSpatialDataDK_exercise.Rmd
+>>>>>>> 655c125e0c6542a5b8fb9c376d408ce94ec4930a:Week02/02_ReadSpatialDataDK_exercise.Rmd
 ```
 
 *Questions:*
@@ -312,6 +323,7 @@ print(aarhus) # 3334 rows, 3334 cols, which is 11115556 cells
 
 2. What is the resolution of `aarhus` orthophoto? How many layers does it contain and what do they represent?
 
+<<<<<<< HEAD:Week02/02_ReadSpatialDataDK_exercise_ALEKSW.Rmd
 <<<<<<< HEAD:Week02/02_ReadSpatialDataDK_exercise.Rmd
 Now you've learned how to read in single and multi-band rasters. You should have noticed, based on the `nlayers()` function, that the `elevation` object has a single layer and the `aarhus` object has five (well, four useful ones, if you plot it).
 =======
@@ -319,6 +331,15 @@ Now you've learned how to read in single and multi-band rasters. You should have
 
 Now you've learned how to read in single and multi-band rasters. You should have noticed, based on the `nlayers()` function, that the `elevation` object has a single layer and the `aarhus` object has four.
 >>>>>>> 906fa6e (week 2 exercise finished):Week02/02_ReadSpatialDataDK_exercise_ALEKSW.Rmd
+=======
+<<<<<<< HEAD:Week02/02_ReadSpatialDataDK_exercise_ALEKSW.Rmd
+  - It has 5 color bands? I don't get it.
+
+Now you've learned how to read in single and multi-band rasters. You should have noticed, based on the `nlayers()` function, that the `elevation` object has a single layer and the `aarhus` object has four.
+=======
+Now you've learned how to read in single and multi-band rasters. You should have noticed, based on the `nlayers()` function, that the `elevation` object has a single layer and the `aarhus` object has five (well, four useful ones, if you plot it).
+>>>>>>> 8d1e0cbfdf86d22c0bd644badd3b87b7c191eba4:Week02/02_ReadSpatialDataDK_exercise.Rmd
+>>>>>>> 655c125e0c6542a5b8fb9c376d408ce94ec4930a:Week02/02_ReadSpatialDataDK_exercise.Rmd
 
 
 # Task 7: Learn about your raster objects
@@ -373,15 +394,25 @@ plot(elevation)
 plot(aarhus)
 
 # Plot the aarhus raster as an image
+<<<<<<< HEAD:Week02/02_ReadSpatialDataDK_exercise_ALEKSW.Rmd
 <<<<<<< HEAD:Week02/02_ReadSpatialDataDK_exercise.Rmd
+=======
+<<<<<<< HEAD:Week02/02_ReadSpatialDataDK_exercise_ALEKSW.Rmd
+plotRGB(aarhus)
+=======
+>>>>>>> 655c125e0c6542a5b8fb9c376d408ce94ec4930a:Week02/02_ReadSpatialDataDK_exercise.Rmd
 ____
 
 
 # Plot the two images together (on top of one another). Hint: it only works if their CRSes are compatible. Return to this after Task 9 and 10 if the CRSes are different.
 ____
+<<<<<<< HEAD:Week02/02_ReadSpatialDataDK_exercise_ALEKSW.Rmd
 =======
 plotRGB(aarhus)
 >>>>>>> 906fa6e (week 2 exercise finished):Week02/02_ReadSpatialDataDK_exercise_ALEKSW.Rmd
+=======
+>>>>>>> 8d1e0cbfdf86d22c0bd644badd3b87b7c191eba4:Week02/02_ReadSpatialDataDK_exercise.Rmd
+>>>>>>> 655c125e0c6542a5b8fb9c376d408ce94ec4930a:Week02/02_ReadSpatialDataDK_exercise.Rmd
 ```
 
 

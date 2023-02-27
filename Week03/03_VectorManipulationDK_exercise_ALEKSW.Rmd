@@ -9,7 +9,7 @@ output:
 
 ```{r setup, include=FALSE}
 library(knitr)
-library(rmdformats)
+library(sf)
 
 ## Global options
 options(max.print="75")
@@ -47,26 +47,26 @@ df <- data.frame(place = c("Aarhus Domkirke",
 
 
 # Convert the data frame to an sf object             
-df_sf <- ___(df, coords = c("longitude", "latitude"), ___)
+df_sf <- st_as_sf(df, coords = c("longitude", "latitude"), 4326)
 
 # Transform the points to match the shelters' CRS EPSG 25832
 df_crs <- st_transform(df_sf, crs = 25832)
 
 # Buffer the points
-df_buf <- _____(df_crs, dist = 500)
+df_buf <- st_buffer(df_crs, dist = 500)
 
 # Load shelters and buffer them by 500m
-shelters <- 
-shelters_buf <- _____(shelters, _____)
+shelters <- st_read("shelters.json")
+shelters_buf <- st_buffer(shelters)
 
 
 # Load the aarhus image
 
 
 # Plot the shelters and buffers, aarhus image and points and their buffers
-_____(______(shelters_buf), col = "green")
-_____(_______(shelters), pch = 2 ,add = TRUE)
-_____(aarhus, stretch = "lin",add = TRUE)
+plot(______(shelters_buf), col = "green")
+plot(_______(shelters), pch = 2 ,add = TRUE)
+plotRGB(aarhus, stretch = "lin",add = TRUE)
 _____(______(df_buf), col = "firebrick",add = TRUE)
 _____(______(df_crs), pch = 16, add = TRUE)
 
