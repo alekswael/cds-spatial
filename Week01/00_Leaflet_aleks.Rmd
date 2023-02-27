@@ -169,13 +169,54 @@ Now that we have learned the basics of using the Map Widget, let learn how to ad
 
 First, create a Danish equivalent of `AUSmap` with ESRI layers and call it `DKmap`
 ```{r dkmap}
-## YOUR CODE HERE
+# create the basic map document
+# Set the location and zoom level
+leaflet() %>% 
+  setView(10, 56, zoom = 6) %>%
+  addTiles()  # checking I am in the right area
+
+
+# Bring in a choice of esri background layers  
+
+l_dk <- leaflet() %>%   # assign the base location to an object
+  setView(10, 56, zoom = 6)
+
+esri <- grep("^Esri", providers, value = TRUE)
+
+# make sure you run the next three lines together else the for-loop will not work
+for (provider in esri) {
+  l_dk <- l_dk %>% addProviderTiles(provider, group = provider)
+}
+
+# create the basic map document
+DKmap <- l_dk %>%
+  addLayersControl(baseGroups = names(esri),
+                   options = layersControlOptions(collapsed = FALSE)) %>%
+  addMiniMap(tiles = esri[[1]], toggleDisplay = TRUE,
+             position = "bottomright") %>%
+  addMeasure(
+    position = "bottomleft",
+    primaryLengthUnit = "meters",
+    primaryAreaUnit = "sqmeters",
+    activeColor = "#3D535D",
+    completedColor = "#7D4479") %>% 
+  htmlwidgets::onRender("
+                        function(el, x) {
+                        var myMap = this;
+                        myMap.on('baselayerchange',
+                        function (e) {
+                        myMap.minimap.changeLayer(L.tileLayer.provider(e.name));
+                        })
+                        }") %>% 
+addControl("", position = "topright")
+
+DKmap # display the map document
 ```
 
 
 ## Create spatial data
 
-Next, create some point data by collecting their location via longitude and latitude. Open GoogleMaps and following the guidelines from the slides, start collecting spatial data into the coordinates column of the provided [Googlesheet](https://docs.google.com/spreadsheets/d/1PlxsPElZML8LZKyXbqdAYeQCDIvDps2McZx1cTVWSzI/edit#gid=1817942479). Find 3-4 of your favorite places in Denmark, copy their coordinates, document their names, the reasons for popularity and rating. *Do not write into the Longitude/Latitude columns! * These columns need to be very consistent and are populated automatically. 
+Next, create some point data by collecting their location via longitude and latitude. Open GoogleMaps and following the guidelines from the slides, start collecting spatial data into the coordinates column of the provided [Googlesheet](https://docs.google.com/spreadsheets/d/1PlxsPElZML8LZKyXbqdAYeQCDIvDps2McZx1cTVWSzI/edit#gid=1817942479). Find 3-4 of your favorite places in Denmark, copy their coordinates, document their names, the reasons for popularity and rating. *Do not write into the Longitude/Latitude columns! * These columns need to be very consistent and are populated automatically.
 
 When done, put up green sticky note and try to read the googlesheet data into your DKmap document.
 
@@ -190,7 +231,7 @@ library(leaflet)
 
 Read in the data from googlesheet with `read_sheet()` function, specifying the path, the column datatype and the `range`. This should just work, allowing you to sign in into your google account en route. If it does not and you get authentication errors, uncomment line 191 and run with that. 
 ```{r read-sheet}
-gs4_deauth() # if the authentication is not working for you
+#gs4_deauth() # if the authentication is not working for you
 
 places <- read_sheet("https://docs.google.com/spreadsheets/d/1PlxsPElZML8LZKyXbqdAYeQCDIvDps2McZx1cTVWSzI/edit#gid=1817942479",
                      range = "SA2022",
@@ -220,11 +261,43 @@ Try doing this in three steps
 
 You can find the tips for this on the [Leaflet R website](https://rstudio.github.io/leaflet/markers.html). Look for the Popups in the the left menu and Marker Clusters under markers.
 ```{r dkmap-data}
-# YOUR CODE
+# create the basic map document
+DKmap <- l_dk %>%
+  addLayersControl(baseGroups = names(esri),
+                   options = layersControlOptions(collapsed = FALSE)) %>%
+  addMiniMap(tiles = esri[[1]], toggleDisplay = TRUE,
+             position = "bottomright") %>%
+  addMeasure(
+    position = "bottomleft",
+    primaryLengthUnit = "meters",
+    primaryAreaUnit = "sqmeters",
+    activeColor = "#3D535D",
+    completedColor = "#7D4479") %>% 
+  addTiles() %>% 
+  addMarkers(lng = places$Longitude, 
+             lat = places$Latitude,
+             popup = paste0(places$Placename, "<br>", places$Description)) %>% 
+  htmlwidgets::onRender("
+                        function(el, x) {
+                        var myMap = this;
+                        myMap.on('baselayerchange',
+                        function (e) {
+                        myMap.minimap.changeLayer(L.tileLayer.provider(e.name));
+                        })
+                        }") %>% 
+addControl("", position = "topright")
+
+DKmap # display the map document
 
 ```
 
 Save your map and rejoice!
+
+```{r save-map}
+library(htmlwidgets)
+saveWidget(DKmap, "DKmap.html", selfcontained = TRUE)
+```
+
 
 ## References
 
