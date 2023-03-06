@@ -2,6 +2,7 @@
 /Week05/my_token.txt
 *_cache
 /data/
+/tokens/
 .Rproj.user
 .Rhistory
 .RData
