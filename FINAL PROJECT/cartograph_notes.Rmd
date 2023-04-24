@@ -1,0 +1,42 @@
+---
+title: "cartograph_notes"
+author: "Aleksander Wael"
+date: "4/24/2023"
+output: html_document
+---
+
+```{r}
+# Load libraries
+'library(dplyr)        # data wrangling
+library(cartogram)    # for the cartogram
+library(ggplot2)      # to realize the plots
+library(broom)        # from geospatial format to data frame
+library(tweenr)       # to create transition dataframe between 2 states
+library(gganimate)    # To realize the animation
+library(maptools)     # world boundaries coordinates
+library(viridis)      # for a nice color palette'
+
+pacman::p_load(dplyr, cartogram, ggplot2, broom, tweenr, gganimate, maptools, viridis)
+```
+
+```{r}
+# Get the shape file of Africa
+data(wrld_simpl)
+afr=wrld_simpl[wrld_simpl$REGION==2,]
+
+# A basic representation
+wrld_simpl@data
+```
+
+```{r}
+# Prepare municipalities
+library(raster)
+municipalities <- getData("GADM", country = "DK", level = 2)
+
+plot(municipalities)
+
+municipalities@data
+```
+
+
+
